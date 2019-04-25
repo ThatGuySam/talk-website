@@ -1,11 +1,11 @@
 {
-  "name": "email-link-builder",
+  "name": "talk-carousel",
   "description": "A Pen created at CodePen.io. You can find this one at https://codepen.io/ThatGuySam/pen/jYGwMR.",
   "version": "1.0.0",
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ThatGuySam/email-link-builder.git"
+    "url": "git+https://github.com/ThatGuySam/talk-carousel.git"
   },
   "keywords": [
     "email",
@@ -15,9 +15,9 @@
   "author": "Sam Carlton",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ThatGuySam/email-link-builder/issues"
+    "url": "https://github.com/ThatGuySam/talk-carousel/issues"
   },
-  "homepage": "https://github.com/ThatGuySam/email-link-builder#readme",
+  "homepage": "https://github.com/ThatGuySam/talk-carousel#readme",
   "scripts": {
     "start": "npm run production",
     "clean": "npm cache clean --force",
