@@ -4,3 +4,16 @@
 [Build]
   Publish = ""
   Functions = ""
+
+# Production context: all deploys from the Production branch set in your site's 
+# deploy contexts will inherit these settings.
+[context.production]
+  command = "npm run prod"
+  environment = { NODE_VERSION = "11.7.0" }
+
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
