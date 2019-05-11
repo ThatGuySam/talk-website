@@ -1,5 +1,8 @@
 <template>
-  <div class="container-fluid px-0" :style="{ background: theme.mainBg }">
+  <div class="container-fluid postion-relative px-0" :style="theme.mainContainer">
+    <div v-if="bgImage" class="main-bg faded-mask-bottom" style="height: 150vh; opacity: 0.3;">
+      <img :src="bgImage.src" class="w-100 h-100 object-cover" :style="{ mixBlendMode: bgImage.blend }"/>
+    </div>
     <div class="container">
       <div class="row align-items-center" style="min-height: 100vh;">
         <div class="col-12 w-100">
@@ -9,6 +12,7 @@
               class="string-seed-input hero-content display-3 font-weight-bold"
               contenteditable="true"
               placeholder="Hi! What's your name?"
+              :style="{ color: theme.mainTextColor }"
             ></div>
           </div>
           {{ seedA }}
@@ -22,9 +26,11 @@
 
 <script>
   import is from 'is_js'
+  import yiq from 'yiq'
 
   import ColorSchemes from '../helpers/colorSchemes'
   import FaIcons from '../helpers/faIcons'
+  import { imageIds } from '../helpers/options'
   import { shuffleFromSeed, pullFromSeed } from '../helpers/shuffling'
 
   import Carousel from './Carousel.vue'
@@ -44,6 +50,9 @@
       }
     },
     computed: {
+      hasSeeds () {
+        return [this.seedA, this.seedB, this.seedC].every(seed => is.number(seed))
+      },
       colorScheme () {
         const seed = this.seedA
         if (seed === null) return
@@ -55,10 +64,32 @@
           list: scheme
         })
       },
-      theme () {
-        console.log('this.colorScheme', this.colorScheme)
+      bgImage () {
+        if (!this.hasSeeds || this.seedA % 3) return
+        
+        const imageId = shuffleFromSeed({
+          seedNumber: this.seedB,
+          index: imageIds.length-1,
+          list: imageIds
+        })
+
+        const imageUrl = `https://source.unsplash.com/${imageId}/1600x900`
+
         return {
-          mainBg: this.colorScheme ? this.colorScheme[0].value : 'transparent'
+          src: imageUrl,
+          blend: pullFromSeed(this.seedC, ['lighten', 'color-burn', 'none'])
+        }
+      }, 
+      theme () {
+        return {
+          root: {
+            '--body-background-color': this.hasSeeds ? this.colorScheme[0].value : 'transparent',
+          },
+          mainContainer: {
+            color: this.hasSeeds ? yiq(this.colorScheme[0].value) : 'inherit',
+            // backgroundColor: this.hasSeeds ? this.colorScheme[0].value : 'transparent',
+            // ...this.bgImageStyle
+          }
         }
       }
     },
@@ -109,6 +140,14 @@
         }, timeout)
       })
 
+    },
+    watch: {
+      theme: function (theme) {
+        // Sync root css variables
+        for (const key in theme.root) {
+          document.documentElement.style.setProperty(key, theme.root[key])
+        }
+      }
     }
   }
 </script>

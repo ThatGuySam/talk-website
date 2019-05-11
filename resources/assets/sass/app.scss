@@ -36,9 +36,22 @@
     }
 }
 
+.main-bg {
+    height: 150vh;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 body {
     font-family: titling-gothic-fb, sans-serif;
     font-weight: 300;
+
+    background-color: var(--body-background-color, transparent)
 }
 
 input.is-quiet,
@@ -51,4 +64,12 @@ textarea.is-quiet {
 pre {
     overflow-wrap: break-word;
     white-space: normal;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.faded-mask-bottom {
+    mask-image: linear-gradient(#000 45%,transparent);
 }
