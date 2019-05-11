@@ -19,6 +19,23 @@
     font-weight: 800;
 }
 
+.string-seed-input {
+    max-width: 100%;
+    outline: none;
+    &[placeholder]:focus:empty::before {
+        content: attr(placeholder);
+        color: rgba(0, 0, 0, .2);
+    }
+
+    &:not(:focus):empty::before {
+        content: 'Tap';
+        @media (hover: hover) {
+            content: 'Click';
+        }
+        color: rgba(0, 0, 0, .2); 
+    }
+}
+
 body {
     font-family: titling-gothic-fb, sans-serif;
     font-weight: 300;
