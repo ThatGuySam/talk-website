@@ -1,46 +1,50 @@
 export default [
     {
-      name: 'yellow',
-      value: '#f0c30b'
-    },
-    {
-      name: 'orange',
-      value: '#f35908'
-    },
-    {
-      name: 'lightOrange',
-      value: '#ff7c00'
-    },
-    {
-      name: 'darkOrange',
-      value: '#ff2a00'
-    },
-    {
-      name: 'red',
-      value: '#ff0000'
-    },
-    {
-      name: 'darkRed',
-      value: '#820114'
-    },
-    {
-      name: 'lightBlue',
-      value: '#0eabb9'
-    },
-    {
-      name: 'blue',
-      value: '#006cc9'
-    },
-    {
-      name: 'lightPink',
-      value: '#ff66b2'
-    },
-    {
       name: 'pink',
-      value: '#e33683'
+      value: '#ff4c7c'
     },
     {
-      name: 'purple',
-      value: '#251333'
-    }
+      name: 'gold',
+      value: '#feae06'
+    },
+    {
+      name: 'darkPink',
+      value: '#bd018a'
+    },
+    {
+      name: 'neonPink',
+      value: '#fe0095'
+    },
+    {
+      name: 'almostRed',
+      value: '#ff1278'
+    },
+    {
+      name: 'superPurple',
+      value: '#ae00d4'
+    },
+    {
+      name: 'ultraPurple',
+      value: '#650695'
+    },
+    {
+      name: 'barneyPurple',
+      value: '#761fff'
+    },
+    {
+      name: 'jetBlue',
+      value: '#4bc1ff'
+    },
+    {
+      name: 'tameBlue',
+      value: '#048eff'
+    },
+    {
+      name: 'funBlue',
+      value: '#00c8ff'
+    },
+    {
+      name: 'yelowOrGreen',
+      value: '#a2ffae'
+    },
   ]
