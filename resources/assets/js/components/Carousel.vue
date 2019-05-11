@@ -75,6 +75,7 @@
   export default {
     data() {
       return {
+        index: 1,
         slides: (function () {
           return [
             buildSlide(0)
