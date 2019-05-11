@@ -56,6 +56,7 @@
     "brownies": "^2.2.0",
     "is_js": "^0.9.0",
     "now-env": "^3.0.4",
+    "swiper": "^4.5.0",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.5.17"
   }
