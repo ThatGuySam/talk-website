@@ -41,7 +41,7 @@
 
   const buildSlide = function (i) {
     const shuffledColors = shuffleFromSeed({
-      seedNumber: i + 10,
+      seedNumber: i + 30,
       list: Colors
     })
 
