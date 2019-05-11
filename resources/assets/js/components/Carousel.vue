@@ -7,7 +7,7 @@
         :key="index"
         :style="{
           left: `${virtualData.offset}px`,
-          backgroundColor: slide.bgColor,
+          background: slide.bg,
         }"
       >
         <div class="slide-wrapper d-flex align-items-center p-5" style="min-height: 450px;">
@@ -53,7 +53,7 @@
     return {
       content: (i + 1),
       index: i,
-      bgColor: shuffledColors[6].value,
+      bg: shuffledColors[7].value,
       textColor: shuffledColors[1].value,
       icons: [
         {
