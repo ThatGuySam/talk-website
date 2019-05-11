@@ -1,10 +1,5 @@
 import is from 'is_js'
 
-export default (seedNumber, list) => {
-    const index = seedNumber % list.length
-    return list[index].value
-}
-
 export const shiftToEnd = (array, times = 1) => {
   for (let i = 0; i < times; i += 1) {
       array.push(array.shift())
@@ -46,3 +41,9 @@ export const shuffleFromSeed = (argOptions) => {
   // Now that the options array has been shift around 
   return shuffledList[index]
 }
+
+export const pullFromSeed = (seedNumber, list) => shuffleFromSeed({
+  seedNumber,
+  list,
+  index: 0
+})
