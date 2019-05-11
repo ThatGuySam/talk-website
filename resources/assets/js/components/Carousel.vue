@@ -7,13 +7,24 @@
         :key="index"
         :style="{
           left: `${virtualData.offset}px`,
-          background: getBackgroundColor(slide.index),
+          backgroundColor: slide.bgColor,
         }"
       >
         <div class="slide-wrapper d-flex align-items-center p-5" style="min-height: 450px;">
-          <div class="slide-text display-3 font-weight-bold" :style="{ color: getTextColor(slide.index) }">{{slide.content}}</div>
+          <div class="slide-text display-3 font-weight-bold" :style="{ color: slide.textColor }">
+            {{slide.content}}
+            <i
+              v-for="(icon, index) in slide.icons"
+              :key="index"
+              :class="`${icon.value} px-2`"
+              :style="{ color: icon.color }"
+            />
+          </div>
         </div>
       </div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </div>
 </template>
@@ -23,21 +34,51 @@
   import Swiper from 'swiper/dist/js/swiper.esm.bundle'
 
   import Colors from '../helpers/colors'
-  
+  import FaIcons from '../helpers/faIcons'
+  import { shuffleFromSeed } from '../helpers/shuffling'
+
+  let swiper
+
+  const buildSlide = function (i) {
+    const shuffledColors = shuffleFromSeed({
+      seedNumber: i + 10,
+      list: Colors
+    })
+
+    const shuffledIcons = shuffleFromSeed({
+      seedNumber: i + 20,
+      list: FaIcons
+    })
+
+    return {
+      content: (i + 1),
+      index: i,
+      bgColor: shuffledColors[6].value,
+      textColor: shuffledColors[1].value,
+      icons: [
+        {
+          color: shuffledColors[2].value,
+          value: shuffledIcons[2].value,
+        },
+        {
+          color: shuffledColors[3].value,
+          value: shuffledIcons[3].value,
+        },
+        {
+          color: shuffledColors[4].value,
+          value: shuffledIcons[4].value,
+        },
+      ]
+    }
+  }
 
   export default {
     data() {
       return {
-        // dummy slides data
         slides: (function () {
-          var slides = [];
-          for (var i = 0; i < 10; i += 1) {
-            slides.push({
-              content: 'Slide ' + (i + 1),
-              index: i
-            })
-          }
-          return slides
+          return [
+            buildSlide(0)
+          ]
         }()),
         // virtual data
         virtualData: {
@@ -46,16 +87,22 @@
       }
     },
     methods: {
-      getBackgroundColor (index) {
-        return Colors[index].value
-      },
-      getTextColor (index) {
-        return Colors[index+1].value
+      pushSlide (i) {
+        const slide = buildSlide(i)
+        this.slides.push(slide)
       }
     },
     mounted() {
-      const swiper = new Swiper(this.$refs.carousel, {
-        // ...
+      swiper = new Swiper(this.$refs.carousel, {
+        speed: 750,
+        // autoplay: {
+        //   delay: 750,
+        //   disableOnInteraction: false,
+        // },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'fraction',
+        },
         virtual: {
           slides: this.slides,
           renderExternal: (data) => {
@@ -64,6 +111,16 @@
           },
         },
       })
+
+      // swiper.virtual.appendSlide('Slide 3');
+
+      let i = 1
+      setInterval(() => {
+        this.pushSlide(i)
+        swiper.slideTo(i)
+        i += 1
+      }, 1500)
+      
     },
   }
 </script>
