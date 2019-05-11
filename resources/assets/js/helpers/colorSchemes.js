@@ -1,6 +1,9 @@
-
+import Colors from './colors'
 
 export default [
+    {
+        colors: Colors
+    },
     // https://dribbble.com/shots/6464757-Clever-1
     {
         colors: [
