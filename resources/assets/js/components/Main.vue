@@ -15,37 +15,6 @@
   export default {
     components: {
       Carousel
-    },
-    data () {
-      return {
-        to: ''
-      }
-    },
-    computed: {
-      params () {
-        return this.to
-      }
-    },
-    mounted () {
-      
-    },
-    methods: {
-      setLocal () {
-        // fields.forEach((key) => {
-        //   local.fields = {
-        //     ...local.fields,
-        //     [key]: this[key]
-        //   }
-        // })
-      },
-      getLocal () {
-        // fields.forEach((key) => {
-        //   const fields = local.fields
-        //   // If this field is empty then stop
-        //   if (is.not.propertyDefined(fields, key)) return
-        //   this[key] = local.fields[key]
-        // })
-      },
     }
   }
 </script>
