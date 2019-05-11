@@ -100,10 +100,6 @@
         //   delay: 750,
         //   disableOnInteraction: false,
         // },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'fraction',
-        },
         virtual: {
           slides: this.slides,
           renderExternal: (data) => {
