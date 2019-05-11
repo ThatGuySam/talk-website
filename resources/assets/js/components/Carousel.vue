@@ -53,7 +53,7 @@
     return {
       content: (i + 1),
       index: i,
-      bg: shuffledColors[7].value,
+      bg: shuffledColors[0].value,
       textColor: shuffledColors[1].value,
       icons: [
         {
