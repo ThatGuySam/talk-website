@@ -111,16 +111,26 @@
             this.virtualData = data
           },
         },
+        on: {
+          init: () => {
+            this.$nextTick(function () {
+              console.log('swiper', swiper)
+              swiper.slideTo(this.index)
+
+              // let i = 1
+              setInterval(() => {
+                this.pushSlide(this.index)
+                swiper.slideTo(this.index)
+                this.index += 1
+              }, 1500)
+            })
+          }
+        }
       })
 
       // swiper.virtual.appendSlide('Slide 3');
 
-      let i = 1
-      setInterval(() => {
-        this.pushSlide(i)
-        swiper.slideTo(i)
-        i += 1
-      }, 1500)
+      
       
     },
   }
