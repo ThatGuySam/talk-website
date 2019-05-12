@@ -71,7 +71,7 @@
             background: this.hasSeeds ? cardColorScheme[1].value : null,
             borderColor: this.hasSeeds ? cardColorScheme[2].value : null,
             borderWidth: this.hasSeeds ? pullFromSeed(this.state.seed.c, ['10px', '1px', '0']) : null,
-            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['20px', '5px', '0']) : null,
+            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['15px', '5px', '0']) : null,
             marginBottom: this.hasSeeds ? this.gridSpacing : null,
             animationDelay: `${(index * pullFromSeed(this.state.seed.a, [50, 75, 100]))}ms`
           },
