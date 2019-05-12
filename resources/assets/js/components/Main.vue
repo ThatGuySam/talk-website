@@ -85,7 +85,7 @@
           },
           heroContainer: {
             color: this.hasSeeds ? yiq(this.colorScheme[0].value) : 'inherit',
-            minHeight: '80vh'
+            minHeight: '65vh'
           }
         }
       }
