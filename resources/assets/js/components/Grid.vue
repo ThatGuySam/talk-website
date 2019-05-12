@@ -11,7 +11,7 @@
       <div class="card-body">
         <h5 v-if="card.title.content" class="card-title heading-style">{{ card.title.content }}</h5>
         <p v-if="card.text" class="card-text">{{ card.text }}</p>
-        <button v-if="card.button" class="btn btn-primary">{{ card.button }}</button>
+        <button v-if="card.button.content" class="btn btn-primary" :style="card.button.style">{{ card.button.content }}</button>
       </div>
     </div>
 
@@ -91,7 +91,12 @@
             content: index % 2 ? 'Title' : null,
           },
           text: index % 3 ? 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' : null,
-          button: !(index % 4) ? 'Go' : null
+          button: {
+            content: !(index % 4) ? 'Go' : null,
+            style: {
+              background: this.hasSeeds ? cardColorScheme[3].value : null
+            }
+          }
         }
       }
     },
