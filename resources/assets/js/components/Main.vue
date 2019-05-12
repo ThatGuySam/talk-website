@@ -66,12 +66,8 @@
       },
       bgImage () {
         if (!this.hasSeeds || this.seedA % 3) return
-        
-        const imageId = shuffleFromSeed({
-          seedNumber: this.seedB,
-          index: imageIds.length-1,
-          list: imageIds
-        })
+
+        const imageId = pullFromSeed(this.seedA, imageIds)
 
         const imageUrl = `https://source.unsplash.com/${imageId}/1600x900`
 
