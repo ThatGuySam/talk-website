@@ -41,7 +41,7 @@
 
   const buildSlide = function (i) {
     const shuffledColors = shuffleFromSeed({
-      seedNumber: i + 10,
+      seedNumber: i + 30,
       list: Colors
     })
 
@@ -53,7 +53,7 @@
     return {
       content: (i + 1),
       index: i,
-      bg: shuffledColors[7].value,
+      bg: shuffledColors[0].value,
       textColor: shuffledColors[1].value,
       icons: [
         {
@@ -100,10 +100,6 @@
         //   delay: 750,
         //   disableOnInteraction: false,
         // },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'fraction',
-        },
         virtual: {
           slides: this.slides,
           renderExternal: (data) => {

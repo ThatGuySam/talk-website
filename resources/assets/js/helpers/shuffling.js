@@ -1,10 +1,5 @@
 import is from 'is_js'
 
-export default (seedNumber, list) => {
-    const index = seedNumber % list.length
-    return list[index].value
-}
-
 export const shiftToEnd = (array, times = 1) => {
   for (let i = 0; i < times; i += 1) {
       array.push(array.shift())
@@ -24,21 +19,22 @@ export const shuffleFromSeed = (argOptions) => {
   // Destructure options
   const {seedNumber, list, index} = options
 
-  const lengthOfList = list.length
+  const clonedList = JSON.parse(JSON.stringify(list))
+
   const seedNumberDigits = String(seedNumber).split('')
   // Last Digit of seedNumber. 
   // Getting the remainder(%) ensures the value 
   // is less than the length of the array
-  const offset = seedNumberDigits.slice(-1)[0] % lengthOfList
+  const offset = seedNumberDigits.slice(-1)[0] % clonedList.length
   // Get second to last digit for shift offset
-  const shiftOffset = seedNumberDigits.slice(-2)[0] % lengthOfList
+  const shiftOffset = seedNumberDigits.slice(-2)[0] % clonedList.length
 
   // Splice options array so it's a unique order. 
   // Kind of like cutting a deck of cards
-  list.unshift(...list.splice(offset, 1))
+  clonedList.unshift(...clonedList.splice(offset, 1))
 
   // Shift entire array by shiftOffset
-  const shuffledList = shiftToEnd(list, shiftOffset)
+  const shuffledList = shiftToEnd(clonedList, shiftOffset)
   
   // If the index is not a number return the whole list
   if (is.not.number(index)) return shuffledList
@@ -46,3 +42,9 @@ export const shuffleFromSeed = (argOptions) => {
   // Now that the options array has been shift around 
   return shuffledList[index]
 }
+
+export const pullFromSeed = (seedNumber, list) => shuffleFromSeed({
+  seedNumber,
+  list,
+  index: 0
+})
