@@ -41,9 +41,13 @@
       }
     },
     computed: {
+      gridSpacing () {
+        return pullFromSeed(this.state.seed.c, ['3rem', '2rem', '1rem'])
+      },
       containerStyle () {
         return {
           columnCount: this.hasSeeds ? pullFromSeed(this.state.seed.b, [1, 2, 3, 4]) : null,
+          columnGap: this.hasSeeds ? this.gridSpacing : null
         }
       },
       cards () {
@@ -67,7 +71,8 @@
             background: this.hasSeeds ? cardColorScheme[1].value : null,
             borderColor: this.hasSeeds ? cardColorScheme[2].value : null,
             borderWidth: this.hasSeeds ? pullFromSeed(this.state.seed.c, ['10px', '1px', '0']) : null,
-            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['20px', '5px', '0']) : null
+            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['20px', '5px', '0']) : null,
+            marginBottom: this.hasSeeds ? this.gridSpacing : null
           },
           imgTop: {
             src: !(index % 2) ? 'https://source.unsplash.com/2AoJ9TnuDIg/1600x900' : null,
