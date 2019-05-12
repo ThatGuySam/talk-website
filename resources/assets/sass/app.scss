@@ -15,8 +15,8 @@
 // @import "variables";
 
 .heading-style {
-    font-family: titling-gothic-fb-extended, sans-serif;
-    font-weight: 800;
+    font-family: var(--heading-font, titling-gothic-fb, sans-serif);
+    font-weight: var(--heading-font-weight, 800);
 }
 
 .string-seed-input {
@@ -48,7 +48,7 @@
 }
 
 body {
-    font-family: titling-gothic-fb, sans-serif;
+    font-family: var(--body-font, titling-gothic-fb, sans-serif);
     font-weight: 300;
 
     background-color: var(--body-background-color, transparent)

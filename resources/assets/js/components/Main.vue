@@ -9,7 +9,7 @@
           <div class="hero-wrapper d-flex align-items-center p-5" style="min-height: 450px;">
             <div
               ref="string_seed_input"
-              class="string-seed-input hero-content display-3 font-weight-bold"
+              class="string-seed-input heading-style hero-content display-3"
               contenteditable="true"
               placeholder="Hi! What's your name?"
               :style="{ color: theme.mainTextColor }"
@@ -30,7 +30,7 @@
 
   import ColorSchemes from '../helpers/colorSchemes'
   import FaIcons from '../helpers/faIcons'
-  import { imageIds } from '../helpers/options'
+  import { imageIds, fonts, headingFonts, headingFontWeights } from '../helpers/options'
   import { shuffleFromSeed, pullFromSeed } from '../helpers/shuffling'
 
   import Carousel from './Carousel.vue'
@@ -80,6 +80,9 @@
         return {
           root: {
             '--body-background-color': this.hasSeeds ? this.colorScheme[0].value : 'transparent',
+            '--body-font': this.hasSeeds ? pullFromSeed(this.seedC, fonts) : 'titling-gothic-fb, sans-serif',
+            '--heading-font': this.hasSeeds ? pullFromSeed(this.seedB, headingFonts) : 'titling-gothic-fb, sans-serif',
+            '--heading-font-weight': this.hasSeeds ? pullFromSeed(this.seedA, headingFontWeights) : 800,
           },
           mainContainer: {
             color: this.hasSeeds ? yiq(this.colorScheme[0].value) : 'inherit',

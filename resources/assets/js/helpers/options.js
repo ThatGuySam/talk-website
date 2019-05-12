@@ -31,8 +31,22 @@ export const imageIds = [
 
 
 export const fonts = [
+  'soleil, sans-serif',
+  'sofia-pro-soft, sans-serif',
+  'sofia-pro, sans-serif'
+]
+
+export const headingFonts = [
   'titling-gothic-fb-extended, sans-serif',
-  'titling-gothic-fb-extended, sans-serif'
+  // 'lust-script-display, sans-serif',
+  ...fonts,
+]
+
+export const headingFontWeights = [
+  900,
+  800,
+  500,
+  100
 ]
 
 // export const patterns = [
