@@ -15,9 +15,6 @@
               :style="{ color: theme.mainTextColor }"
             ></div>
           </div>
-          {{ state.seed.a }}
-          {{ state.seed.b }}
-          {{ state.seed.c }}
         </div>
       </div>
 
