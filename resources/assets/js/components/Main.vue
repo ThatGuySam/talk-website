@@ -122,11 +122,32 @@
       getTextFromUrl () {
         const path = window.location.pathname.split('/')
         return decodeURI(path[1])
+      },
+      seedText (text) {
+        // Reset
+        this.seedA = null
+        this.seedB = null
+        this.seedC = null
+
+        // If there's no text then stop
+        if (!text.length) return
+
+        // Load in numbers
+        const [ seedA, seedB, seedC ] = this.generateNumbers(text)
+        
+        this.seedA = seedA
+        this.seedB = seedB
+        this.seedC = seedC
       }
     },
     mounted () {
 
-      this.$refs.string_seed_input.innerHTML = this.getTextFromUrl()
+      const textFromUrl = this.getTextFromUrl()
+      
+      if (is.not.empty(textFromUrl)) {
+        this.$refs.string_seed_input.innerHTML = textFromUrl
+        this.seedText(textFromUrl)
+      }
 
       // Set up input listener
       this.$refs.string_seed_input.addEventListener('input', event => {
@@ -137,20 +158,7 @@
 
           this.updateHistoryState(text)
 
-          // Reset
-          this.seedA = null
-          this.seedB = null
-          this.seedC = null
-
-          // If there's no text then stop
-          if (!text.length) return
-
-          // Load in numbers
-          const [ seedA, seedB, seedC ] = this.generateNumbers(text)
-          
-          this.seedA = seedA
-          this.seedB = seedB
-          this.seedC = seedC
+          this.seedText(text)
 
         }, timeout)
       })
