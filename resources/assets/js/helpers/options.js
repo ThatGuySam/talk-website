@@ -56,10 +56,12 @@ export const headingFontWeights = [
 
 export const animations = [
   'fadeIn',
-  'fadeInDown',
   'fadeInUp',
-  'fadeInDownBig',
   'fadeInUpBig',
+  'fadeInRightBig',
+  'fadeInRight',
+  'fadeInLeftBig',
+  'fadeInLeft',
   'zoomIn',
   'flipInX'
 ]
