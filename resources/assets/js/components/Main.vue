@@ -1,10 +1,10 @@
 <template>
-  <div class="container-fluid postion-relative px-0" :style="theme.mainContainer">
+  <div class="container-fluid postion-relative px-0">
     <div v-if="bgImage" class="main-bg faded-mask-bottom" style="height: 150vh; opacity: 0.3;">
       <img :src="bgImage.src" class="w-100 h-100 object-cover" :style="{ mixBlendMode: bgImage.blend }"/>
     </div>
     <div class="container">
-      <div class="row align-items-center" style="min-height: 100vh;">
+      <div class="row align-items-center" :style="theme.heroContainer">
         <div class="col-12 w-100">
           <div class="hero-wrapper d-flex align-items-center p-5" style="min-height: 450px;">
             <div
@@ -15,11 +15,21 @@
               :style="{ color: theme.mainTextColor }"
             ></div>
           </div>
-          {{ seedA }}
-          {{ seedB }}
-          {{ seedC }}
+          {{ state.seed.a }}
+          {{ state.seed.b }}
+          {{ state.seed.c }}
         </div>
       </div>
+
+      <div class="row align-items-center">
+        <div class="col-12 w-100">
+          <Grid
+            v-if="hasSeeds"
+            :list="[1,2,3,4,5,6,7,8,9,10]"
+          />
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -28,66 +38,54 @@
   import is from 'is_js'
   import yiq from 'yiq'
 
+  import store from '../helpers/store'
   import ColorSchemes from '../helpers/colorSchemes'
   import FaIcons from '../helpers/faIcons'
   import { imageIds, fonts, headingFonts, headingFontWeights } from '../helpers/options'
   import { shuffleFromSeed, pullFromSeed } from '../helpers/shuffling'
 
-  import Carousel from './Carousel.vue'
+  import commonMixins from '../mixins/common'
+
+  import Grid from './Grid.vue'
 
   let timeout = 500
   let timer = null
 
   export default {
+    mixins: [ commonMixins ],
     components: {
-      Carousel
+      Grid
     },
     data: function () {
       return {
-        seedA: null,
-        seedB: null,
-        seedC: null,
+        
       }
     },
     computed: {
-      hasSeeds () {
-        return [this.seedA, this.seedB, this.seedC].every(seed => is.number(seed))
-      },
-      colorScheme () {
-        const seed = this.seedA
-        if (seed === null) return
-
-        const scheme = pullFromSeed(this.seedA, ColorSchemes).colors
-
-        return shuffleFromSeed({
-          seedNumber: this.seedC,
-          list: scheme
-        })
-      },
       bgImage () {
-        if (!this.hasSeeds || this.seedA % 3) return
+        if (!this.hasSeeds || this.state.seed.a % 3) return
 
-        const imageId = pullFromSeed(this.seedA, imageIds)
+        const imageId = pullFromSeed(this.state.seed.a, imageIds)
 
         const imageUrl = `https://source.unsplash.com/${imageId}/1600x900`
 
         return {
           src: imageUrl,
-          blend: pullFromSeed(this.seedC, ['lighten', 'color-burn', 'none'])
+          blend: pullFromSeed(this.state.seed.c, ['lighten', 'color-burn', 'none'])
         }
-      }, 
+      },
       theme () {
+        console.log('this.colorScheme', this.colorScheme)
         return {
           root: {
             '--body-background-color': this.hasSeeds ? this.colorScheme[0].value : 'transparent',
-            '--body-font': this.hasSeeds ? pullFromSeed(this.seedC, fonts) : 'titling-gothic-fb, sans-serif',
-            '--heading-font': this.hasSeeds ? pullFromSeed(this.seedB, headingFonts) : 'titling-gothic-fb, sans-serif',
-            '--heading-font-weight': this.hasSeeds ? pullFromSeed(this.seedA, headingFontWeights) : 800,
+            '--body-font': this.hasSeeds ? pullFromSeed(this.state.seed.c, fonts) : 'titling-gothic-fb, sans-serif',
+            '--heading-font': this.hasSeeds ? pullFromSeed(this.state.seed.b, headingFonts) : 'titling-gothic-fb, sans-serif',
+            '--heading-font-weight': this.hasSeeds ? pullFromSeed(this.state.seed.a, headingFontWeights) : 800,
           },
-          mainContainer: {
+          heroContainer: {
             color: this.hasSeeds ? yiq(this.colorScheme[0].value) : 'inherit',
-            // backgroundColor: this.hasSeeds ? this.colorScheme[0].value : 'transparent',
-            // ...this.bgImageStyle
+            minHeight: '80vh'
           }
         }
       }
@@ -125,19 +123,19 @@
       },
       seedText (text) {
         // Reset
-        this.seedA = null
-        this.seedB = null
-        this.seedC = null
+        store.clearSeedAction()
 
         // If there's no text then stop
         if (!text.length) return
 
         // Load in numbers
         const [ seedA, seedB, seedC ] = this.generateNumbers(text)
-        
-        this.seedA = seedA
-        this.seedB = seedB
-        this.seedC = seedC
+
+        store.setSeedAction({
+          a: seedA,
+          b: seedB,
+          c: seedC
+        })
       }
     },
     mounted () {

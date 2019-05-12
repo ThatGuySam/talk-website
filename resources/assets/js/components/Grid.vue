@@ -1,0 +1,85 @@
+<template>
+  <div class="card-columns">
+
+    <div
+      v-for="(card, index) in cards"
+      :key="index"
+      class="card"
+      :style="card.style"
+    >
+      <img v-if="card.imgTop.src" class="card-img-top" :src="card.imgTop.src" alt="Card image cap" :style="card.imgTop.style">
+      <div class="card-body">
+        <h5 v-if="card.title.content" class="card-title heading-style">{{ card.title.content }}</h5>
+        <p v-if="card.text" class="card-text">{{ card.text }}</p>
+        <button v-if="card.button" class="btn btn-primary">{{ card.button }}</button>
+      </div>
+    </div>
+
+  </div>
+
+</template>
+
+<script>
+  import yiq from 'yiq'
+
+  import store from '../helpers/store'
+  import ColorSchemes from '../helpers/colorSchemes'
+  // import { imageIds, fonts, headingFonts, headingFontWeights } from '../helpers/options'
+  import { shuffleFromSeed, pullFromSeed } from '../helpers/shuffling'
+  
+  import commonMixins from '../mixins/common'
+
+  export default {
+    mixins: [ commonMixins ],
+    props: {
+      list: Array,
+      seedNumbers: Array
+    },
+    data() {
+      return {
+        
+      }
+    },
+    computed: {
+      cards () {
+        return this.list.map((item, index) => {
+          return this.buildCardDetails(index)
+        })
+      }
+    },
+    methods: {
+      buildCardDetails (index) {
+        // console.log('this.colorScheme', this.colorScheme)
+
+        const cardColorScheme = shuffleFromSeed({
+          seedNumber: index + this.state.seed.a,
+          list: this.colorScheme
+        })
+
+        return {
+          style: {
+            color: this.hasSeeds ? yiq(cardColorScheme[1].value) : null,
+            background: this.hasSeeds ? cardColorScheme[1].value : null,
+            borderColor: this.hasSeeds ? cardColorScheme[2].value : null,
+            borderWidth: this.hasSeeds ? pullFromSeed(this.state.seed.c, ['10px', '1px', '0']) : null,
+            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['15px', '5px', '0']) : null
+          },
+          imgTop: {
+            src: !(index % 2) ? 'https://source.unsplash.com/2AoJ9TnuDIg/1600x900' : null,
+            style: {
+              mixBlendMode: 'lighten'//pullFromSeed(this.state.seed.c, ['lighten', 'color-burn', 'none'])
+            }
+          },
+          title: {
+            content: index % 2 ? 'Title' : null,
+          },
+          text: index % 3 ? 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' : null,
+          button: !(index % 4) ? 'Go' : null
+        }
+      }
+    },
+    mounted() {
+      
+    },
+  }
+</script>
