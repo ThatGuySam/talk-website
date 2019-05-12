@@ -1,10 +1,10 @@
 <template>
-  <div class="card-columns">
+  <div class="card-columns" :style="containerStyle">
 
     <div
       v-for="(card, index) in cards"
       :key="index"
-      class="card"
+      class="card overflow-hidden"
       :style="card.style"
     >
       <img v-if="card.imgTop.src" class="card-img-top" :src="card.imgTop.src" alt="Card image cap" :style="card.imgTop.style">
@@ -41,6 +41,11 @@
       }
     },
     computed: {
+      containerStyle () {
+        return {
+          columnCount: this.hasSeeds ? pullFromSeed(this.state.seed.b, [1, 2, 3, 4]) : null,
+        }
+      },
       cards () {
         return this.list.map((item, index) => {
           return this.buildCardDetails(index)
@@ -62,12 +67,12 @@
             background: this.hasSeeds ? cardColorScheme[1].value : null,
             borderColor: this.hasSeeds ? cardColorScheme[2].value : null,
             borderWidth: this.hasSeeds ? pullFromSeed(this.state.seed.c, ['10px', '1px', '0']) : null,
-            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['15px', '5px', '0']) : null
+            borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['20px', '5px', '0']) : null
           },
           imgTop: {
             src: !(index % 2) ? 'https://source.unsplash.com/2AoJ9TnuDIg/1600x900' : null,
             style: {
-              mixBlendMode: 'lighten'//pullFromSeed(this.state.seed.c, ['lighten', 'color-burn', 'none'])
+              mixBlendMode: yiq(cardColorScheme[1].value, { white: 'lighten', black: 'multiply'})//pullFromSeed(this.state.seed.c, ['lighten', 'color-burn', 'none'])
             }
           },
           title: {
