@@ -4,7 +4,7 @@
     <div
       v-for="(card, index) in cards"
       :key="index"
-      class="card overflow-hidden"
+      :class="card.className"
       :style="card.style"
     >
       <img v-if="card.imgTop.src" class="card-img-top" :src="card.imgTop.src" alt="Card image cap" :style="card.imgTop.style">
@@ -24,7 +24,7 @@
 
   import store from '../helpers/store'
   import ColorSchemes from '../helpers/colorSchemes'
-  // import { imageIds, fonts, headingFonts, headingFontWeights } from '../helpers/options'
+  import { animations } from '../helpers/options'
   import { shuffleFromSeed, pullFromSeed } from '../helpers/shuffling'
   
   import commonMixins from '../mixins/common'
@@ -72,8 +72,15 @@
             borderColor: this.hasSeeds ? cardColorScheme[2].value : null,
             borderWidth: this.hasSeeds ? pullFromSeed(this.state.seed.c, ['10px', '1px', '0']) : null,
             borderRadius: this.hasSeeds ? pullFromSeed(this.state.seed.a, ['20px', '5px', '0']) : null,
-            marginBottom: this.hasSeeds ? this.gridSpacing : null
+            marginBottom: this.hasSeeds ? this.gridSpacing : null,
+            animationDelay: `${(index * pullFromSeed(this.state.seed.a, [50, 75, 100]))}ms`
           },
+          className: [
+            'card',
+            'overflow-hidden',
+            'animated',
+            this.hasSeeds ? pullFromSeed(this.state.seed.a, animations) : null,
+          ].join(' '),
           imgTop: {
             src: !(index % 2) ? 'https://source.unsplash.com/2AoJ9TnuDIg/1600x900' : null,
             style: {
