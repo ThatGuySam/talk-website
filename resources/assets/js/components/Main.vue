@@ -111,8 +111,22 @@
         
         return [Number(numberA) + 11, Number(numberB) + 13, Number(numberC) + 15]
       },
+      updateHistoryState (text) {
+        console.log('text', text)
+        if (is.empty(text)) {
+          history.replaceState(null, null, '/')
+          return
+        }
+        history.replaceState(null, null, text)
+      },
+      getTextFromUrl () {
+        const path = window.location.pathname.split('/')
+        return decodeURI(path[1])
+      }
     },
     mounted () {
+
+      this.$refs.string_seed_input.innerHTML = this.getTextFromUrl()
 
       // Set up input listener
       this.$refs.string_seed_input.addEventListener('input', event => {
@@ -120,6 +134,8 @@
         timer = setTimeout(() => {
           // Get text from stage
           const text = event.target.innerText || event.target.textContent
+
+          this.updateHistoryState(text)
 
           // Reset
           this.seedA = null
