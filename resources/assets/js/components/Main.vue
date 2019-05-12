@@ -9,7 +9,7 @@
           <div class="hero-wrapper d-flex align-items-center p-5" style="min-height: 450px;">
             <div
               ref="string_seed_input"
-              class="string-seed-input heading-style hero-content display-3"
+              class="string-seed-input heading-style hero-content display-4 w-100"
               contenteditable="true"
               placeholder="Hi! What's your name?"
               :style="{ color: theme.mainTextColor }"
